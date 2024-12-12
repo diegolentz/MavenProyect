@@ -11,9 +11,12 @@
   <dependencies>
   	<dependency>
   		<groupId>MavenProyect</groupId>
-  		<artifactId>app-daos</artifactId>
+  		<artifactId>app-services</artifactId>
   		<version>1.0.0-SNAPSHOT</version>
   	</dependency>
+  	
+  	
+  	
   </dependencies>
   
   
