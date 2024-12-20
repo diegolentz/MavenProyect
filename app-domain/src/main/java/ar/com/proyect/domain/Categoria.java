@@ -9,6 +9,11 @@ public class Categoria {
 		this.id = id;
 		this.nombre = nombre;
 	}
+	
+	public Categoria(String nombre) {
+		super();
+		this.nombre = nombre;
+	}
 
 	public Long getId() {
 		return id;

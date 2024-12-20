@@ -29,7 +29,7 @@ public class ArticuloController {
 		
 		List<Articulo> articulos = new ArrayList<>();
 		List<Categoria> categorias = new ArrayList<>();
-		
+//----------------------------------------------------------
 //		consulto por id
 //		Articulo articulo = serviceArticulo.getById(2l);
 //		System.out.println(articulo);
@@ -38,13 +38,51 @@ public class ArticuloController {
 //		System.out.println(categoria);
 		
 		
-		//me traigo todos los articulos
+//----------------------------------------------------------
+//		me traigo todos los articulos
 //		articulos = serviceArticulo.findAll();
 //		System.out.println(articulos);
 //		
 //		categorias = serviceCategotia.findAll();
 //		System.out.println(categorias);
+		
+//----------------------------------------------------------
+//		creo un objetos
+//		Categoria categoria = new Categoria("otra");
+//		serviceCategotia.create(categoria);
+//		System.out.println(categorias);
+//		
+//		categorias = serviceCategotia.findAll();
+//		System.out.println(categoria);
+//		
+//		Articulo articulo = new Articulo("articulo creado",1300.0, "create generico", "3x3", "la mejor imagen",2l);
+//		serviceArticulo.create(articulo);
+//		System.out.println(articulo);
+//		
+//		articulos = serviceArticulo.findAll();
+//		System.out.println(articulos);
 
+//----------------------------------------------------------
+//		puedo eliminar
+//		serviceArticulo.delete(8l);
+//		serviceCategotia.delete(5l);
+		
+		
+//----------------------------------------------------------
+//		puedo editar
+//		Articulo articuloEditar = serviceArticulo.getById(7l);
+//		articuloEditar.setDescripcion("articulo editado");
+//		serviceArticulo.update(articuloEditar);
+//		Articulo corroboroArticulo = serviceArticulo.getById(7l);
+//		
+//		System.out.println(corroboroArticulo);
+//
+//		Categoria categoriaEditar = serviceCategotia.getById(3l);
+//		categoriaEditar.setNombre("categoria editada");
+//		serviceCategotia.update(categoriaEditar);
+//		Categoria corroboroCategoria= serviceCategotia.getById(3l);
+//		
+//		System.out.println(corroboroCategoria);
 		
 
 	}

@@ -20,38 +20,24 @@ public class ArticuloDaoMySQLIMPL extends JDBCBaseDao<Articulo> implements Artic
 
 	@Override
 	public void save(Articulo articulo) throws GenericException {
+	    String sql = "INSERT INTO articulos (descripcion, precio, titulo, dimension, imagen, categoria_id) VALUES (?, ?, ?, ?, ?, ?)";
+	    try (Connection con = AdminConexiones.obtenerConexion();
+	         PreparedStatement ps = con.prepareStatement(sql)) {
 
-		try (Connection con = AdminConexiones.obtenerConexion()) {
+	        ps.setString(1, articulo.getDescripcion());
+	        ps.setDouble(2, articulo.getPrecio());
+	        ps.setString(3, articulo.getTitulo());
+	        ps.setString(4, articulo.getDimension());
+	        ps.setString(5, articulo.getImagen());
+	        ps.setLong(6, articulo.getCategoria());
 
-			StringBuffer sql = new StringBuffer(
-					"INSERT INTO articulos (descripcion,precio, titulo, dimension, imagen,categoria) VALUES(");
-			sql.append("?,?,?,?,?,?)");
-
-			try (PreparedStatement st = con.prepareStatement(sql.toString(), PreparedStatement.RETURN_GENERATED_KEYS)) {
-
-				st.setString(1, articulo.getDescripcion());
-				st.setDouble(2, articulo.getPrecio());
-				st.setString(4, articulo.getTitulo());
-				st.setString(5, articulo.getDimension());
-				st.setString(7, articulo.getImagen());
-				st.setLong(3, articulo.getCategoria());
-
-				st.execute();
-
-				try (ResultSet rs = st.getGeneratedKeys()) {
-
-					if (rs.next()) {
-
-						Long id = rs.getLong(1);
-
-						articulo.setId(id);
-					}
-				}
-			}
-		} catch (GenericException | SQLException ge) {
-			throw new GenericException(ge.getMessage(), ge);
-		}
+	        ps.executeUpdate();
+	    } catch (SQLException e) {
+	        throw new GenericException("Error al guardar el artículo", e);
+	    }
 	}
+
+
 
 	@Override
 	public void update(Articulo articuloToUpdate) throws GenericException {
@@ -73,7 +59,7 @@ public class ArticuloDaoMySQLIMPL extends JDBCBaseDao<Articulo> implements Artic
 			sql.append("imagen=?").append(", ");
 		}
 		if (articuloToUpdate.getCategoria() != null) {
-			sql.append("categoria=?").append(",");
+			sql.append("categoria_id=?").append(",");
 		}
 
 		sql = new StringBuffer(sql.substring(0, sql.length() - 1));

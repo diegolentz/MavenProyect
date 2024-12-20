@@ -19,42 +19,26 @@ public class CategoriaDaoMySQLIMPL extends JDBCBaseDao<Categoria> implements Cat
 	}
 
 	@Override
-	public void save(Categoria Categorias) throws GenericException {
-
-		try (Connection con2 = AdminConexiones.obtenerConexion()) {
-
-			StringBuffer sql = new StringBuffer("INSERT INTO categorias(nombre) VALUES(");
-			sql.append("?)");
-
-			try (PreparedStatement st = con2.prepareStatement(sql.toString(),
-					PreparedStatement.RETURN_GENERATED_KEYS)) {
-
-				st.execute();
-
-				try (ResultSet rs = st.getGeneratedKeys()) {
-
-					if (rs.next()) {
-
-						Long id = rs.getLong(1);
-
-						Categorias.setId(id);
-					}
-				}
-			}
-		} catch (GenericException | SQLException ge) {
-			throw new GenericException(ge.getMessage(), ge);
-		}
-	}
+	 public void save(Categoria categoria) throws GenericException {
+        String sql = "INSERT INTO categorias (nombre) VALUES (?)";
+        try (Connection connection = AdminConexiones.obtenerConexion();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, categoria.getNombre());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new GenericException("Error saving Categoria", e);
+        }
+    }
 
 	@Override
 	public void update(Categoria CategoriasToUpdate) throws GenericException {
 		StringBuffer sql = new StringBuffer("UPDATE categorias SET ");
 
 		if (CategoriasToUpdate.getNombre() != null) {
-			sql.append("nombre=?").append(", ");
+			sql.append("nombre=?");
 		}
 
-		sql = new StringBuffer(sql.substring(0, sql.length() - 1));
+//		sql = new StringBuffer(sql.substring(0, sql.length() - 1));
 
 		sql.append(" where id=?");
 
